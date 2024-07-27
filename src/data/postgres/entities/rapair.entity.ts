@@ -17,9 +17,15 @@ export class Repair extends BaseEntity {
     @CreateDateColumn({type:'date', nullable:false})
     date: Date;
 
+    @Column({type:'int', nullable: false})
+    motorsNumber: number;
+
+    @Column({type: 'varchar', length: 200, nullable: false})
+    description: string;
+
     @Column({type:'enum', enum: RepairStatus, default:RepairStatus.PENDING})
     status: string;
-
+     
     @Column({type:'int', nullable: false})
     userId: number;
 

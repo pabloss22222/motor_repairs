@@ -32,6 +32,9 @@ export class User extends BaseEntity {
     @Column({type:'enum', enum: UserStatus, default:UserStatus.AVAILABLE})
     status: string;
 
+    @Column({type: "boolean", default: false})
+    emailValidated: boolean
+
     @CreateDateColumn()
     created_at: Date;
   
