@@ -171,10 +171,9 @@ export class UserService{
           token: token,
           user: {
             id: user.id,
-            firstName: user.first_name,
-            surname: user.surname,
+            name: user.name,
             email: user.email,
-            role: user.role,
+            role: user.role,   
           }
         }
       }
