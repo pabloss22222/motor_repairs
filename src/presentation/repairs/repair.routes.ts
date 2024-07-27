@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { RepairController } from "./repair.controller";
 import { RepairService } from "../services/repairs.service";
+import { AuthMiddleware } from "../middelware/auth.middelware";
 
 export class RepairRoutes {
 
@@ -12,8 +13,9 @@ export class RepairRoutes {
 
         const repairController = new RepairController(repairService);
 
-        router.get('/', repairController.findAllRepairs);
         router.post('/', repairController.createRepair);
+        router.use(AuthMiddleware.protect, AuthMiddleware.restrictTo)
+        router.get('/', repairController.findAllRepairs);
         router.get('/:id', repairController.findRepairById);
         router.patch('/:id', repairController.updateRepairById);
         router.delete('/:id', repairController.deleteRepairById);

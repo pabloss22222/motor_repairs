@@ -29,7 +29,7 @@ export class UserRoutes {
 
          router.post('/login', userController.login);
          router.get('/validate-email/:token', userController.validateEmail)
-
+      
         return router
 
     }

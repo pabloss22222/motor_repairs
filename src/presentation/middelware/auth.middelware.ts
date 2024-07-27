@@ -2,15 +2,15 @@ import { NextFunction, Request, Response } from 'express';
 import { JwtAdapter } from '../../config/jwt.adapter';
 import { User } from '../../data';
 
-
+//UserStatus
 enum Status {
-  ACTIVE = 'ACTIVE',
-  INACTIVE = 'INACTIVE'
+    AVAILABLE ='AVAILABLE',
+    DISABLED = 'DISABLED'
 }
-
+//UserRole
 enum Role {
-  ADMIN = 'ADMIN',
-  CLIENT = 'CLIENT'
+    CLIENT= 'CLIENT',
+    EMPLOYEE= 'EMPLOYEE'
 }
 
 export class AuthMiddleware {
@@ -30,8 +30,8 @@ export class AuthMiddleware {
       const user = await User.findOne({
         where: {
           id: payload.id,
-          status: Status.ACTIVE,
-          emailValidated: true
+          status: Status.AVAILABLE,
+          //emailValidated: true
         }
       })
       if( !user ) return res.status(401).json({ message: 'Invalid user' });
