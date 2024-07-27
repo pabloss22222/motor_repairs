@@ -17,7 +17,7 @@ enum UserStatus {
 
 export class UserService{
 
-    constructor(private readonly emailService: EmailService){}
+    //constructor(private readonly emailService: EmailService){}
 
     async createUser(createUserDto: CreateUserDto){
 
@@ -40,7 +40,7 @@ export class UserService{
         try{
             await user.save()
 
-            await this.sendEmailValidationLink( user.email );
+            //await this.sendEmailValidationLink( user.email );
       
             const token = await JwtAdapter.generateToken({ id: user.id } )
             if( !token ) throw CustomError.internalServer('Error while creating JWT')
@@ -55,7 +55,7 @@ export class UserService{
 
     }
    //----------------------------------------------------------------------------------
-   public sendEmailValidationLink = async ( email: string ) => {
+  /* public sendEmailValidationLink = async ( email: string ) => {
 
      const token = await JwtAdapter.generateToken({ email })
      if( !token ) throw CustomError.internalServer('Error getting token')
@@ -74,7 +74,7 @@ export class UserService{
      if( !isSent ) throw CustomError.internalServer('Error sending email');
  
      return true;
-   }  
+   }  */
   //----------------------------------------------------------------------------------
    public validateEmail = async(token:string) => {
 

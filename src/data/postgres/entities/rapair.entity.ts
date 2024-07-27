@@ -1,4 +1,5 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { User } from "./user.entity";
 
 
 enum RepairStatus {
@@ -26,8 +27,11 @@ export class Repair extends BaseEntity {
     @Column({type:'enum', enum: RepairStatus, default:RepairStatus.PENDING})
     status: string;
      
-    @Column({type:'int', nullable: false})
-    userId: number;
+    // @Column({type:'int', nullable: false})
+    // userId: number;
+
+    @ManyToOne(() => User, (user) => user.repairs)
+    user: User;
 
     @CreateDateColumn()
     created_at: Date;

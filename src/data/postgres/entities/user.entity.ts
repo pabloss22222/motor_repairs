@@ -1,4 +1,5 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Repair } from "./rapair.entity";
 
 
 enum UserStatus {
@@ -34,6 +35,9 @@ export class User extends BaseEntity {
 
     @Column({type: "boolean", default: false})
     emailValidated: boolean
+
+    @OneToMany(() => Repair, (repair) => repair.user)
+    repairs: Repair[];
 
     @CreateDateColumn()
     created_at: Date;

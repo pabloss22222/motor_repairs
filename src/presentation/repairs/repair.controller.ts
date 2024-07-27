@@ -1,3 +1,4 @@
+import { CreateRepairDto } from "../../domain";
 import { CustomError } from "../../domain/errors/custom.errors";
 import { RepairService } from "../services/repairs.service";
 import { Request, Response } from "express";
@@ -16,9 +17,12 @@ export class RepairController{
   
       createRepair=(req: Request, res: Response)=>{
   
-          const {date, status, userId}=req.body;
+         const [ error, createRepairDTO ] = CreateRepairDto.create(req.body);
+         if( error ) return res.status(422).json({ message: error })
+
+         const sessionUserId = req.body.sessionUser.id;
   
-          this.repairService.createRepair({date, status, userId})
+          this.repairService.createRepair(createRepairDTO!, sessionUserId)
            .then(repair => res.status(201).json(repair))
            .catch((error:any)=>{this.handleError(error, res)})
       }
